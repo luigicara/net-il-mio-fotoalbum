@@ -1,0 +1,87 @@
+﻿@model ModelsHelper
+@{
+    Layout = "_layout";
+}
+<div class="scroll2">
+    <div class="filter mb-3 mt-3">
+        <div class="con-filt">
+            <form asp-controller="Home" asp-action="FilterTitle" method="post" class="form-inline">
+                <div class="form-group mx-sm-3 mb-2 d-flex">
+                    <input type="text" asp-for="Value" class="form-control d-flex me-3" id="inputPassword2" placeholder="Search..">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="cont-det2">
+
+        <div class="inner-cont2">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var photo in Model.Photos)
+                {
+                   <div class="col">
+                        <a href="@Url.Action("Details", "Home",new{id = photo.Id})" class="text-black text-decoration-none">
+                            <img src="@photo.ImageEntryBase64" class="img-fluid"  />
+                        </a>
+                        <div class="card-body2">
+                            <h5 class="card-title text-center mt-2">@photo.Title</h5>
+                            <div class="desc-cn">
+                                <p class="card-text text-center elli">
+                                    @photo.Description
+                                </p>
+                            </div>
+                            @if (User.IsInRole("ADMIN"))
+                            {
+
+                                <form asp-controller="Home" asp-action="AdminVisibility" asp-route-id="@photo.Id" method="post" enctype="multipart/form-data" novalidate>
+                                    <div class="d-flex visible-form">
+                                        <div class="visible-inner">
+                                            <select asp-for="Visibility" class="d-flex w-50 ms-2">
+                                            <option disabled selected>Select</option>
+                                            <option value="Visible">Visible</option>
+                                            <option value="Hidden">Hidden</option>
+                                                   
+                                            </select>
+                                            <input type="submit" value="Apply" class="btn btn-primary d-flex ml-3">
+                                        </div>
+                                    </div>
+                                </form>
+
+                            }
+                        </div>
+                        
+                   </div>
+         
+                }
+
+            </div>
+       
+        </div>
+     
+    </div>
+
+    <div class="cont-form mt-5">
+        <div class="inner-form">
+              <h1 class="text-center">CONTACT ME</h1>
+            <form asp-controller="Home" asp-action="SendMessage" method="post" novalidate class="">
+
+                <div class="form-group">
+                    <label class="mb-1">Email address : </label>
+                    <input asp-for="Message.Email" type="email" class="form-control mb-1"  placeholder="Email..">
+                    <span asp-validation-for="Message.Email" class="text-danger"></span>
+                </div>
+       
+                <div class="form-group">
+                    <label class="mb-1" >Message : </label>
+                    <textarea asp-for="Message.Text" class="form-control mb-1"  rows="3" placeholder="Message..."></textarea>
+                    <span asp-validation-for="Message.Email" class="text-danger"></span>
+                </div>
+       
+                <div class="text-end">
+                    <input type="submit" class="btn btn-small btn-info mt-2" value="Send">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

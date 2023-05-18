@@ -1,0 +1,49 @@
+﻿@model PhotoFormModel
+
+<div class="container">
+
+    <form asp-controller="Home" asp-action="Edit" method="post" asp-route-id="@Model.Photo.Id" enctype="multipart/form-data" novalidate>
+
+        <div class="mb-3">
+            <label>Title : </label>
+            <input asp-for="Photo.Title" class="d-block w-100" />
+            <span asp-validation-for="Photo.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label>Description : </label>
+            <input asp-for="Photo.Description" class="d-block w-100" />
+            <span asp-validation-for="Photo.Description" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Immagine : </label>
+            <input type="file" asp-for="Photo.Image" class="d-block w-100" accept="image/*" />
+        </div>
+    
+        <div class="mb-3">
+            <label>Category : </label>
+            <select asp-for="SelectedCategories" multiple="multiple" asp-items="Model.Categories" size="10"
+                    class="form-control mb-2 mr-sm-2 ml-sm-3 leftList">
+            </select>
+            <span asp-validation-for="SelectedCategories" class="text-danger"></span>
+
+        </div>
+        <div class="mb-3">
+            <label>Visibility : </label>
+            <select asp-for="Photo.Visible" rows="10" class="d-block w-100">
+
+                <option value=True>Visible</option>
+                <option value=False>Hidden</option>
+
+
+            </select>
+            <span asp-validation-for="Photo.Visible" class="text-danger"></span>
+
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Edit">
+        </div>
+      
+
+    </form>
+</div>

@@ -1,0 +1,41 @@
+﻿@model List<Photo>
+<div class="scroll">
+    <div class="cont-create mb-3">
+        <a href="@Url.Action("Create", "Home")" class="btn btn-primary">Create a new Photo</a>
+    </div>
+    <div class="cont-det">
+
+        <div class="inner-cont2">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var photo in Model)
+                {
+
+                    <div class="col">
+                        <a href="@Url.Action("Details", "Home",new{id = photo.Id})" class="text-black text-decoration-none"></a>
+                        <div class="card">
+
+                            <img src="@photo.ImageEntryBase64" class="img-t" alt="Hollywood Sign on The Hill" />
+                            <div class="card-body2">
+                                <h5 class="card-title text-center mt-2">@photo.Title</h5>
+
+                                <p class="card-text text-center elli">
+                                    @photo.Description
+                                </p>
+
+                                <div class="cont-btn mt-3">
+                                    <a href="@Url.Action("Edit", "Home",new{id = photo.Id})" class="btn btn-primary">Edit Photo</a>
+                                    <a href="@Url.Action("Delete", "Home",new{id = photo.Id})" class="btn btn-primary">Delete Photo</a>
+                                </div>
+                            </div>
+                           
+                        </div>
+                         
+                    </div>
+         
+                }
+            
+            </div>
+  
+        </div>
+    </div>
+</div>
